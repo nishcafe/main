@@ -204,6 +204,7 @@ public class EditCommand extends Command {
 
             return getName().equals(e.getName())
                     && getPhone().equals(e.getPhone())
+                    && getEmail().equals(e.getEmail())
                     && getTags().equals(e.getTags());
         }
     }
