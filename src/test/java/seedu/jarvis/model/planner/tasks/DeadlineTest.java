@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -21,7 +22,7 @@ class DeadlineTest {
     @Test
     void addPriority_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
         d.setPriority(Priority.HIGH);
         assertNotNull(d.priority);
     }
@@ -29,7 +30,7 @@ class DeadlineTest {
     @Test
     void addFrequency_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
         d.setFrequency(Frequency.MONTHLY);
         assertNotNull(d.frequency);
     }
@@ -37,7 +38,7 @@ class DeadlineTest {
     @Test
     void addTag_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
         Tag t = new Tag("school");
         d.addTag(t);
         assertNotNull(d.tags);
@@ -46,7 +47,7 @@ class DeadlineTest {
     @Test
     void getTags_validInput_success() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
         Tag t = new Tag("school");
         d.addTag(t);
         assertTrue(d.getTags().contains(t));
@@ -56,8 +57,8 @@ class DeadlineTest {
     void equals_validInput_true() {
         LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline deadlineOne = new Deadline("borrow book", deadlineOneCal);
-        Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
+        Deadline deadlineOne = new Deadline(new TaskDescription("borrow book"), deadlineOneCal);
+        Deadline deadlineTwo = new Deadline(new TaskDescription("borrow book"), deadlineTwoCal);
         assertTrue(deadlineOne.equals(deadlineTwo));
     }
 
@@ -65,22 +66,22 @@ class DeadlineTest {
     void equals_validInput_false() {
         LocalDate deadlineOneCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
         LocalDate deadlineTwoCal = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline deadlineOne = new Deadline("borrow hello", deadlineOneCal);
-        Deadline deadlineTwo = new Deadline("borrow book", deadlineTwoCal);
+        Deadline deadlineOne = new Deadline(new TaskDescription("borrow hello"), deadlineOneCal);
+        Deadline deadlineTwo = new Deadline(new TaskDescription("borrow book"), deadlineTwoCal);
         assertFalse(deadlineOne.equals(deadlineTwo));
     }
 
     @Test
     void getDueDate() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
         assertEquals(due, d.getDueDate());
     }
 
     @Test
     void toString_withAllAttributesPresent() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
         d.setPriority(Priority.LOW);
         d.setFrequency(Frequency.MONTHLY);
         d.addTag(new Tag("school"));
@@ -95,7 +96,7 @@ class DeadlineTest {
     @Test
     void toString_withNoAttributesPresent() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
 
         String expected = "Deadline: homework by 2019-10-10";
 
@@ -104,9 +105,9 @@ class DeadlineTest {
 
     @Test
     void getTaskDes_success() {
-        String expected = "homework";
+        TaskDescription expected = new TaskDescription("homework");
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
 
         assertEquals(expected, d.getTaskDes());
     }
@@ -119,7 +120,7 @@ class DeadlineTest {
     @Test
     void markAsDone() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
 
         d.markAsDone();
 
@@ -129,7 +130,7 @@ class DeadlineTest {
     @Test
     void markAsNotDone() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
 
         d.markAsDone();
         assertEquals(Status.DONE, d.getStatus());
@@ -141,7 +142,7 @@ class DeadlineTest {
     @Test
     void getStatus() {
         LocalDate due = LocalDate.parse("10/10/2019", Task.getDateFormat());
-        Deadline d = new Deadline("homework", due);
+        Deadline d = new Deadline(new TaskDescription("homework"), due);
 
         assertEquals(Status.NOT_DONE, d.getStatus());
     }

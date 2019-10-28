@@ -13,6 +13,7 @@ import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -42,7 +43,7 @@ class DeleteTaskCommandTest {
     @Test
     void execute_validIndex_success() throws ParseException {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         planner.addTask(t);
         DeleteTaskCommand command = new DeleteTaskCommand(parseIndex(("1")));
         assertDoesNotThrow(() -> command.execute(planner));
@@ -59,7 +60,7 @@ class DeleteTaskCommandTest {
     void executeInverse_success() throws CommandException, ParseException {
         Model model = new ModelManager();
         Model expected = new ModelManager();
-        Task toDelete = new Todo("borrow book");
+        Task toDelete = new Todo(new TaskDescription("borrow book"));
 
         model.addTask(toDelete);
         expected.addTask(toDelete);

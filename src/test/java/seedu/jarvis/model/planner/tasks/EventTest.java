@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -21,7 +22,7 @@ class EventTest {
     void addPriority() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event e = new Event("homework", start, end);
+        Event e = new Event(new TaskDescription("homework"), start, end);
         e.setPriority(Priority.HIGH);
         assertNotNull(e.priority);
     }
@@ -30,7 +31,7 @@ class EventTest {
     void addFrequency() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event e = new Event("homework", start, end);
+        Event e = new Event(new TaskDescription("homework"), start, end);
         e.setFrequency(Frequency.DAILY);
         assertNotNull(e.frequency);
     }
@@ -39,7 +40,7 @@ class EventTest {
     void addTag() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event e = new Event("homework", start, end);
+        Event e = new Event(new TaskDescription("homework"), start, end);
         Tag t = new Tag("school");
         e.addTag(t);
         assertNotNull(e.tags);
@@ -49,7 +50,7 @@ class EventTest {
     void getTags() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event e = new Event("homework", start, end);
+        Event e = new Event(new TaskDescription("homework"), start, end);
         Tag t = new Tag("school");
         e.addTag(t);
         assertTrue(e.getTags().contains(t));
@@ -59,11 +60,11 @@ class EventTest {
     void equals_validInput_true() {
         LocalDate startOne = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate endOne = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event one = new Event("borrow book", startOne, endOne);
+        Event one = new Event(new TaskDescription("borrow book"), startOne, endOne);
 
         LocalDate startTwo = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate endTwo = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event two = new Event("borrow book", startTwo, endTwo);
+        Event two = new Event(new TaskDescription("borrow book"), startTwo, endTwo);
 
         assertTrue(one.equals(two));
     }
@@ -72,11 +73,11 @@ class EventTest {
     void equals_validInput_false() {
         LocalDate startOne = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate endOne = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event one = new Event("borrow hello", startOne, endOne);
+        Event one = new Event(new TaskDescription("borrow hello"), startOne, endOne);
 
         LocalDate startTwo = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate endTwo = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event two = new Event("borrow book", startTwo, endTwo);
+        Event two = new Event(new TaskDescription("borrow book"), startTwo, endTwo);
 
         assertFalse(one.equals(two));
     }
@@ -85,7 +86,7 @@ class EventTest {
     void getStartDate_true() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
         LocalDate testCal = LocalDate.parse("18/10/2019", Task.getDateFormat());
         assertEquals(0, testCal.compareTo(testEvent.getStartDate()));
     }
@@ -94,7 +95,7 @@ class EventTest {
     void getEndDate_true() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
         LocalDate testCal = LocalDate.parse("19/10/2019", Task.getDateFormat());
         assertEquals(0, testCal.compareTo(testEvent.getEndDate()));
     }
@@ -103,7 +104,7 @@ class EventTest {
     void toString_withAllAttributesPresent() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
 
         testEvent.setFrequency(Frequency.WEEKLY);
         testEvent.setPriority(Priority.HIGH);
@@ -120,7 +121,7 @@ class EventTest {
     void toString_withNoAttributesPresent() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
 
         String expected = "Event: borrow book from 2019-10-18 to 2019-10-19";
 
@@ -132,9 +133,9 @@ class EventTest {
     void getTaskDes_success() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
 
-        String expected = "borrow book";
+        TaskDescription expected = new TaskDescription("borrow book");
 
         assertEquals(expected, testEvent.getTaskDes());
     }
@@ -148,7 +149,7 @@ class EventTest {
     void markAsDone() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
 
         testEvent.markAsDone();
 
@@ -159,7 +160,7 @@ class EventTest {
     void markAsNotDone() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
 
         testEvent.markAsDone();
         assertEquals(Status.DONE, testEvent.getStatus());
@@ -172,7 +173,7 @@ class EventTest {
     void getStatus() {
         LocalDate start = LocalDate.parse("18/10/2019", Task.getDateFormat());
         LocalDate end = LocalDate.parse("19/10/2019", Task.getDateFormat());
-        Event testEvent = new Event("borrow book", start, end);
+        Event testEvent = new Event(new TaskDescription("borrow book"), start, end);
 
         assertEquals(Status.NOT_DONE, testEvent.getStatus());
     }

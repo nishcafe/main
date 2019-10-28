@@ -24,22 +24,22 @@ class TaskDesContainsKeywordsPredicateTest {
         //One keyword
         TaskDesContainsKeywordsPredicate predicate = new TaskDesContainsKeywordsPredicate(
                                                             Collections.singletonList("read"));
-        Task t = new Todo("read book");
+        Task t = new Todo(new TaskDescription("read book"));
         assertTrue(predicate.test(t));
 
         //Multiple keywords
         predicate = new TaskDesContainsKeywordsPredicate(Arrays.asList("read", "book"));
-        t = new Todo("read book");
+        t = new Todo(new TaskDescription("read book"));
         assertTrue(predicate.test(t));
 
         //Only one matching keyword
         predicate = new TaskDesContainsKeywordsPredicate(Arrays.asList("borrow", "book"));
-        t = new Todo("read book");
+        t = new Todo(new TaskDescription("read book"));
         assertTrue(predicate.test(t));
 
         //Mixed-case keywords
         predicate = new TaskDesContainsKeywordsPredicate(Arrays.asList("reAd", "Book"));
-        t = new Todo("read book");
+        t = new Todo(new TaskDescription("read book"));
         assertTrue(predicate.test(t));
 
     }

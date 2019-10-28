@@ -22,12 +22,12 @@ class PlannerTest {
     void getTasks() {
         Planner planner = new Planner();
         ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(new Todo("borrow book"));
-        tasks.add(new Todo("read book"));
+        tasks.add(new Todo(new TaskDescription("borrow book")));
+        tasks.add(new Todo(new TaskDescription("read book")));
         TaskList expected = new TaskList(tasks);
 
-        planner.addTask(new Todo("borrow book"));
-        planner.addTask(new Todo("read book"));
+        planner.addTask(new Todo(new TaskDescription("borrow book")));
+        planner.addTask(new Todo(new TaskDescription("read book")));
 
         assertTrue(expected.equals(planner.getTaskList()));
 
@@ -36,38 +36,38 @@ class PlannerTest {
     @Test
     void addTask_task() {
         Planner planner = new Planner();
-        planner.addTask(new Todo("read book"));
+        planner.addTask(new Todo(new TaskDescription("read book")));
         assertNotNull(planner.getTaskList().getTasks());
     }
 
     @Test
     void addTask_taskAndIndex() {
         Planner planner = new Planner();
-        planner.addTask(0, new Todo("read book"));
+        planner.addTask(0, new Todo(new TaskDescription("read book")));
         assertNotNull(planner.getTaskList().getTasks());
     }
 
     @Test
     void hasTask_true() {
         Planner planner = new Planner();
-        planner.addTask(new Todo("borrow book"));
-        assertTrue(planner.hasTask(new Todo("borrow book")));
+        planner.addTask(new Todo(new TaskDescription("borrow book")));
+        assertTrue(planner.hasTask(new Todo(new TaskDescription("borrow book"))));
     }
 
     @Test
     void hasTask_false() {
         Planner planner = new Planner();
-        planner.addTask(new Todo("borrow book"));
-        assertFalse(planner.hasTask(new Todo("borrow")));
+        planner.addTask(new Todo(new TaskDescription("borrow book")));
+        assertFalse(planner.hasTask(new Todo(new TaskDescription("borrow"))));
     }
 
     @Test
     void equals_true() {
         Planner pOne = new Planner();
-        pOne.addTask(new Todo("borrow book"));
+        pOne.addTask(new Todo(new TaskDescription("borrow book")));
 
         Planner pTwo = new Planner();
-        pTwo.addTask(new Todo("borrow book"));
+        pTwo.addTask(new Todo(new TaskDescription("borrow book")));
 
         assertTrue(pOne.equals(pTwo));
     }
@@ -75,7 +75,7 @@ class PlannerTest {
     @Test
     void equals_false() {
         Planner pOne = new Planner();
-        pOne.addTask(new Todo("borrow book"));
+        pOne.addTask(new Todo(new TaskDescription("borrow book")));
 
         Planner pTwo = new Planner();
 
@@ -84,11 +84,11 @@ class PlannerTest {
 
     @Test
     void getTask() throws ParseException {
-        Task expected = new Todo("borrow book");
+        Task expected = new Todo(new TaskDescription("borrow book"));
 
         Planner testPlanner = new Planner();
-        testPlanner.addTask(new Todo("read book"));
-        testPlanner.addTask(new Todo("borrow book"));
+        testPlanner.addTask(new Todo(new TaskDescription("read book")));
+        testPlanner.addTask(new Todo(new TaskDescription("borrow book")));
 
         assertTrue(expected.equals(testPlanner.getTask(ParserUtil.parseIndex("2"))));
     }
@@ -96,9 +96,9 @@ class PlannerTest {
     @Test
     void deleteTask_index() throws ParseException {
         Planner testPlanner = new Planner();
-        testPlanner.addTask(new Todo("borrow"));
-        testPlanner.addTask(new Todo("read"));
-        testPlanner.addTask(new Todo("study"));
+        testPlanner.addTask(new Todo(new TaskDescription("borrow")));
+        testPlanner.addTask(new Todo(new TaskDescription("read")));
+        testPlanner.addTask(new Todo(new TaskDescription("study")));
 
         testPlanner.deleteTask(ParserUtil.parseIndex("2"));
 
@@ -108,10 +108,10 @@ class PlannerTest {
     @Test
     void deleteTask_task() {
         Planner testPlanner = new Planner();
-        Task toDelete = new Todo("read");
-        testPlanner.addTask(new Todo("borrow"));
+        Task toDelete = new Todo(new TaskDescription("read"));
+        testPlanner.addTask(new Todo(new TaskDescription("borrow")));
         testPlanner.addTask(toDelete);
-        testPlanner.addTask(new Todo("study"));
+        testPlanner.addTask(new Todo(new TaskDescription("study")));
 
         testPlanner.deleteTask(toDelete);
 
@@ -121,9 +121,9 @@ class PlannerTest {
     @Test
     void size() {
         Planner testPlanner = new Planner();
-        testPlanner.addTask(new Todo("borrow"));
-        testPlanner.addTask(new Todo("read"));
-        testPlanner.addTask(new Todo("study"));
+        testPlanner.addTask(new Todo(new TaskDescription("borrow")));
+        testPlanner.addTask(new Todo(new TaskDescription("read")));
+        testPlanner.addTask(new Todo(new TaskDescription("study")));
 
         assertEquals(3, testPlanner.size());
     }
@@ -131,8 +131,8 @@ class PlannerTest {
     @Test
     void getFilteredTaskList() {
         Planner planner = new Planner();
-        planner.addTask(new Todo("borrow book"));
-        planner.addTask(new Todo("read book"));
+        planner.addTask(new Todo(new TaskDescription("borrow book")));
+        planner.addTask(new Todo(new TaskDescription("read book")));
 
         TaskDesContainsKeywordsPredicate predicate = new TaskDesContainsKeywordsPredicate(
                                                             Arrays.asList("borrow"));
@@ -145,13 +145,13 @@ class PlannerTest {
     @Test
     void markTaskAsDone() throws ParseException {
         Planner planner = new Planner();
-        planner.addTask(new Todo("borrow book"));
-        planner.addTask(new Todo("read book"));
+        planner.addTask(new Todo(new TaskDescription("borrow book")));
+        planner.addTask(new Todo(new TaskDescription("read book")));
 
         planner.markTaskAsDone(ParserUtil.parseIndex("1"));
         Task check = planner.getTask(ParserUtil.parseIndex("1"));
 
-        assertEquals("borrow book", check.getTaskDes());
+        assertEquals(new TaskDescription("borrow book"), check.getTaskDes());
         assertEquals(Status.DONE, check.getStatus());
     }
 }

@@ -12,6 +12,7 @@ import seedu.jarvis.commons.core.tag.Tag;
 import seedu.jarvis.logic.commands.Command;
 import seedu.jarvis.logic.commands.planner.AddTaskCommand;
 import seedu.jarvis.logic.parser.ParserUtil;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
@@ -26,7 +27,7 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/todo des/borrow book f/weekly p/high #school";
 
-        Task expectedTask = new Todo("borrow book");
+        Task expectedTask = new Todo(new TaskDescription("borrow book"));
         expectedTask.setFrequency(Frequency.WEEKLY);
         expectedTask.setPriority(Priority.HIGH);
         expectedTask.addTag(new Tag("school"));
@@ -40,7 +41,7 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/todo des/borrow book";
 
-        Task expectedTask = new Todo("borrow book");
+        Task expectedTask = new Todo(new TaskDescription("borrow book"));
 
         Command expectedCommand = new AddTaskCommand(expectedTask);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -51,7 +52,7 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/deadline des/borrow book d/20/10/2019";
 
-        Task expectedTask = new Deadline("borrow book", LocalDate.parse("20/10/2019", Task.getDateFormat()));
+        Task expectedTask = new Deadline(new TaskDescription("borrow book"), LocalDate.parse("20/10/2019", Task.getDateFormat()));
 
         Command expectedCommand = new AddTaskCommand(expectedTask);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -62,7 +63,7 @@ class AddTaskCommandParserTest {
         AddTaskCommandParser parser = new AddTaskCommandParser();
         String userInput = " t/event des/bday d/20/10/2019//21/10/2019";
 
-        Task expectedTask = new Event("bday", LocalDate.parse("20/10/2019", Task.getDateFormat()),
+        Task expectedTask = new Event(new TaskDescription("bday"), LocalDate.parse("20/10/2019", Task.getDateFormat()),
                                         LocalDate.parse("21/10/2019", Task.getDateFormat()));
 
         Command expectedCommand = new AddTaskCommand(expectedTask);

@@ -20,6 +20,7 @@ import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -238,16 +239,16 @@ public class ParserUtilTest {
 
     @Test
     void buildTask_validInput_success() throws Exception {
-        Task expected = new Todo("borrow book");
+        Task expected = new Todo(new TaskDescription("borrow book"));
         LocalDate[] dates = new LocalDate[2];
-        Task actual = ParserUtil.buildTask("todo", "borrow book", dates);
+        Task actual = ParserUtil.buildTask("todo", new TaskDescription("borrow book"), dates);
         assertTrue(expected.equals(actual));
     }
 
     @Test
     void buildTask_invalidInput_throwsException() {
         LocalDate[] dates = new LocalDate[2];
-        assertThrows(ParseException.class, () -> ParserUtil.buildTask("task", "borrow book",
-                dates));
+        assertThrows(ParseException.class, () -> ParserUtil.buildTask("task",
+                new TaskDescription("borrow book"), dates));
     }
 }

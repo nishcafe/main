@@ -14,6 +14,7 @@ import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Status;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
@@ -38,7 +39,7 @@ class DoneTaskCommandTest {
     @Test
     void execute_validIndex_success() {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         planner.addTask(t);
 
         DoneTaskCommand command = new DoneTaskCommand(parseIndex("1"));
@@ -52,7 +53,7 @@ class DoneTaskCommandTest {
     @Test
     void execute_invalidIndex_throwsException() {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         planner.addTask(t);
 
         DoneTaskCommand command = new DoneTaskCommand(parseIndex("2"));
@@ -62,7 +63,7 @@ class DoneTaskCommandTest {
     @Test
     void execute_taskAlreadyDone_throwsException() {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         t.markAsDone();
         planner.addTask(t);
 
@@ -74,7 +75,7 @@ class DoneTaskCommandTest {
     void executeInverse_success() throws CommandException {
         Model model = new ModelManager();
         Model expected = new ModelManager();
-        Task toUndo = new Todo("borrow book");
+        Task toUndo = new Todo(new TaskDescription("borrow book"));
         model.addTask(toUndo);
         expected.addTask(toUndo);
 

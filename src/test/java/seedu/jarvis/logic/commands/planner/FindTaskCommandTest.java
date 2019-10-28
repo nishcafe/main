@@ -21,6 +21,7 @@ import seedu.jarvis.model.financetracker.FinanceTracker;
 import seedu.jarvis.model.history.HistoryManager;
 import seedu.jarvis.model.planner.Planner;
 import seedu.jarvis.model.planner.TaskDesContainsKeywordsPredicate;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 import seedu.jarvis.model.userprefs.UserPrefs;
@@ -74,7 +75,7 @@ class FindTaskCommandTest {
         String expectedMessage = String.format(FindTaskCommand.MESSAGE_TASKS_LISTED_OVERVIEW, 1);
         TaskDesContainsKeywordsPredicate predicate = preparePredicate("book");
 
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         model.addTask(t);
         expectedModel.addTask(t);
 

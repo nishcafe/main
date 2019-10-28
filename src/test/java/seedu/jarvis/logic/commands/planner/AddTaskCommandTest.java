@@ -11,6 +11,7 @@ import seedu.jarvis.logic.commands.CommandResult;
 import seedu.jarvis.logic.commands.exceptions.CommandException;
 import seedu.jarvis.model.Model;
 import seedu.jarvis.model.ModelManager;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.tasks.Task;
 import seedu.jarvis.model.planner.tasks.Todo;
 
@@ -20,7 +21,7 @@ class AddTaskCommandTest {
 
     @Test
     void hasInverseExecution_success() {
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         AddTaskCommand command = new AddTaskCommand(t);
         assertTrue(command.hasInverseExecution());
     }
@@ -28,7 +29,7 @@ class AddTaskCommandTest {
     @Test
     void execute_validInput_success() {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         AddTaskCommand command = new AddTaskCommand(t);
         assertDoesNotThrow(() -> command.execute(planner));
     }
@@ -36,7 +37,7 @@ class AddTaskCommandTest {
     @Test
     void execute_duplicateInput_throwsException() {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         planner.addTask(t);
         AddTaskCommand command = new AddTaskCommand(t);
         assertThrows(CommandException.class, () -> command.execute(planner));
@@ -45,7 +46,7 @@ class AddTaskCommandTest {
     @Test
     void executeInverse() throws CommandException {
         Model planner = new ModelManager();
-        Task t = new Todo("borrow and read book");
+        Task t = new Todo(new TaskDescription("borrow and read book"));
         AddTaskCommand command = new AddTaskCommand(t);
         command.execute(planner);
         CommandResult actualMessage = command.executeInverse(planner);
@@ -56,7 +57,7 @@ class AddTaskCommandTest {
 
     @Test
     void getCommandWord() {
-        Task t = new Todo("borrow book");
+        Task t = new Todo(new TaskDescription("borrow book"));
         AddTaskCommand command = new AddTaskCommand(t);
         String actualCommand = command.getCommandWord();
 
