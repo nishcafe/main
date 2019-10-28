@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -19,14 +20,14 @@ public class Event extends Task {
     private LocalDate start;
     private LocalDate end;
 
-    public Event(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags, LocalDate start,
+    public Event(TaskDescription taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags, LocalDate start,
                  LocalDate end) {
         super(taskDes, priority, frequency, status, tags);
         this.start = start;
         this.end = end;
     }
 
-    public Event(String taskDes, LocalDate start, LocalDate end) {
+    public Event(TaskDescription taskDes, LocalDate start, LocalDate end) {
         this(taskDes, null, null, Status.NOT_DONE, new HashSet<>(), start, end);
     }
 

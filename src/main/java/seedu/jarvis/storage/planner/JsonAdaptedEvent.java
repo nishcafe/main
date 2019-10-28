@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.jarvis.commons.exceptions.IllegalValueException;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -61,7 +62,7 @@ public class JsonAdaptedEvent extends JsonAdaptedTask implements JsonAdapter<Tas
     public Task toModelType() throws IllegalValueException {
         validateAttributes();
         return new Event(
-                description,
+                new TaskDescription(description),
                 priority != null ? Priority.valueOf(priority) : null,
                 frequency != null ? Frequency.valueOf(frequency) : null,
                 status != null ? Status.valueOf(status) : null,

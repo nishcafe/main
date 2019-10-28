@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -18,13 +19,13 @@ public class Deadline extends Task {
 
     private LocalDate deadline;
 
-    public Deadline(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags,
+    public Deadline(TaskDescription taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags,
                     LocalDate deadline) {
         super(taskDes, priority, frequency, status, tags);
         this.deadline = deadline;
     }
 
-    public Deadline(String taskDes, LocalDate deadline) {
+    public Deadline(TaskDescription taskDes, LocalDate deadline) {
         this(taskDes, null, null, Status.NOT_DONE, new HashSet<>(), deadline);
     }
 

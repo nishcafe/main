@@ -55,7 +55,7 @@ public abstract class JsonAdaptedTask implements JsonAdapter<Task> {
     }
 
     public JsonAdaptedTask(Task task) {
-        description = task.getTaskDescription();
+        description = task.getTaskDescription().toString();
         priority = task.getPriority() != null ? task.getPriority().name() : null;
         frequency = task.getFrequency() != null ? task.getFrequency().name() : null;
         status = task.getStatus() != null ? task.getStatus().name() : null;

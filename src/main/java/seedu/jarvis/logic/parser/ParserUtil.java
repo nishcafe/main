@@ -24,6 +24,7 @@ import seedu.jarvis.model.address.person.Address;
 import seedu.jarvis.model.address.person.Email;
 import seedu.jarvis.model.address.person.Name;
 import seedu.jarvis.model.address.person.Phone;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Deadline;
@@ -212,14 +213,25 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String} task description into a {@code TaskDescription}
+     * @param taskDes {@code String} representation of a task description
+     * @return a {@code TaskDescription} object
+     */
+    //TODO test
+    public static TaskDescription parseTaskDes(String taskDes) {
+        requireNonNull(taskDes);
+        return new TaskDescription(taskDes);
+    }
+
+    /**
      * Builds a task for AddTaskCommandParser
      * @param taskType the type of task
-     * @param taskDes description of the task
+     * @param taskDes {@code TaskDescription} of the task
      * @param dates dates of the task, if any
      * @return returns a task
      * @throws ParseException if task type input by the user is wrong
      */
-    public static Task buildTask(String taskType, String taskDes, LocalDate[] dates) throws ParseException {
+    public static Task buildTask(String taskType, TaskDescription taskDes, LocalDate[] dates) throws ParseException {
         Task t;
         if (taskType.equals(EVENT)) {
             t = new Event(taskDes, dates[0], dates[1]);

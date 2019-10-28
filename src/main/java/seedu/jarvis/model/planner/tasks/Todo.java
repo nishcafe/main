@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -15,11 +16,11 @@ import seedu.jarvis.storage.planner.JsonAdaptedTodo;
  */
 public class Todo extends Task {
 
-    public Todo(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags) {
+    public Todo(TaskDescription taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags) {
         super(taskDes, priority, frequency, status, tags);
     }
 
-    public Todo(String taskDes) {
+    public Todo(TaskDescription taskDes) {
         this(taskDes, null, null, Status.NOT_DONE, new HashSet<>());
     }
 

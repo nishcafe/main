@@ -22,6 +22,7 @@ import seedu.jarvis.logic.parser.Parser;
 import seedu.jarvis.logic.parser.ParserUtil;
 import seedu.jarvis.logic.parser.Prefix;
 import seedu.jarvis.logic.parser.exceptions.ParseException;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.tasks.Task;
@@ -31,6 +32,11 @@ import seedu.jarvis.model.planner.tasks.Task;
  */
 public class AddTaskCommandParser implements Parser<AddTaskCommand> {
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddTaskCommand
+     * and returns an AddTaskCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
     @Override
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TASK_TYPE, PREFIX_TASK_DES, PREFIX_DATE,
@@ -52,7 +58,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
                               : null;
 
         String taskType = argMultimap.getValue(PREFIX_TASK_TYPE).get();
-        String taskDes = argMultimap.getValue(PREFIX_TASK_DES).get();
+        TaskDescription taskDes = ParserUtil.parseTaskDes(argMultimap.getValue(PREFIX_TASK_DES).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         LocalDate[] dates = new LocalDate[2];
         if (taskType.equals(DEADLINE) || taskType.equals(EVENT)) {

@@ -20,7 +20,7 @@ public class TaskDesContainsKeywordsPredicate implements Predicate<Task> {
     @Override
     public boolean test(Task task) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getTaskDes(), keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(task.getTaskDes().toString(), keyword));
     }
 
     @Override

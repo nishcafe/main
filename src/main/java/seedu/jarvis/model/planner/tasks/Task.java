@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.jarvis.commons.core.tag.Tag;
+import seedu.jarvis.model.planner.TaskDescription;
 import seedu.jarvis.model.planner.enums.Frequency;
 import seedu.jarvis.model.planner.enums.Priority;
 import seedu.jarvis.model.planner.enums.Status;
@@ -21,13 +22,13 @@ public abstract class Task {
     public static final String TODO = "todo";
     protected static DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    protected String taskDes;
+    protected TaskDescription taskDes;
     protected Priority priority;
     protected Frequency frequency;
     protected Status status;
     protected Set<Tag> tags = new HashSet<>();
 
-    public Task(String taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags) {
+    public Task(TaskDescription taskDes, Priority priority, Frequency frequency, Status status, Set<Tag> tags) {
         this.taskDes = taskDes;
         this.priority = priority;
         this.frequency = frequency;
@@ -37,7 +38,7 @@ public abstract class Task {
         }
     }
 
-    public Task(String taskDes) {
+    public Task(TaskDescription taskDes) {
         this(taskDes, null, null, Status.NOT_DONE, new HashSet<>());
     }
 
@@ -46,7 +47,7 @@ public abstract class Task {
      * Gets the task description of this {@code Todo}.
      * @return {@code String} containing the description of this {@code Todo}.
      */
-    public String getTaskDescription() {
+    public TaskDescription getTaskDescription() {
         return taskDes;
     }
 
@@ -127,7 +128,7 @@ public abstract class Task {
      * Retrieves the task description of a task
      * @return the task description of a particular task
      */
-    public String getTaskDes() {
+    public TaskDescription getTaskDes() {
         return taskDes;
     }
 
